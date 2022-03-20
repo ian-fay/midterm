@@ -13,7 +13,7 @@ class Program
 
             logger.Info("Program Started.");
 
-            string file = "Tickets.csv";
+            string file = null;
             string choice;
 
             do
@@ -23,26 +23,50 @@ class Program
                 Console.WriteLine("2) Add data to file.");
                 Console.WriteLine("Enter any other key to exit.");
                 choice = Console.ReadLine();
-
                 
                 if (choice == "1")
                 {
-                    // read data from file
-                    if (File.Exists(file))
+                    do
                     {
-                        StreamReader sr = new StreamReader(file);
-                        while (!sr.EndOfStream)
-                        {
-                            string line = sr.ReadLine();
-                            Console.WriteLine(line);
+                        Console.WriteLine("Select the file to be read:");
+                        Console.WriteLine("1) Tickets.csv");
+                        Console.WriteLine("2) Task.csv");
+                        Console.WriteLine("3) Enhancements.csv");
+                        Console.WriteLine("Enter any other key to exit.");
+                        choice = Console.ReadLine();
+
+                        if(choice == "1") {
+                            file = "Tickets.csv";
+                        } else if(choice == "2") {
+                            file = "Task.csv";
+                        } else if(choice == "3") {
+                            file = "Enhancements.csv";
                         }
-                        sr.Close();
-                    }
-                    else
-                    {
-                        Console.WriteLine("File does not exist");
-                        logger.Error("File does not exist.");
-                    }
+                            // read data from file
+                            if (File.Exists(file))
+                            {
+                                StreamReader sr = new StreamReader(file);
+                                while (!sr.EndOfStream)
+                                {
+                                    logger.Info($"Reading {file}");
+                                    Console.WriteLine($"Reading from file {file}. \n" );
+                                    string line = sr.ReadLine();
+                                    Console.WriteLine(line);
+                                    
+                                }
+                                sr.Close();
+                                Console.WriteLine($"\n{file} read.");
+                                logger.Info($"\n{file} read.");
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("File does not exist");
+                                logger.Error("File does not exist.");
+                            }
+
+                    } while (choice == "1" || choice == "2" || choice == "3");
+
                 }
                 else if (choice == "2")
                 {
