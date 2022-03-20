@@ -46,13 +46,12 @@ class Program
                             if (File.Exists(file))
                             {
                                 StreamReader sr = new StreamReader(file);
+                                logger.Info($"Reading {file}");
+                                Console.WriteLine($"Reading from file {file}. \n" );
                                 while (!sr.EndOfStream)
                                 {
-                                    logger.Info($"Reading {file}");
-                                    Console.WriteLine($"Reading from file {file}. \n" );
                                     string line = sr.ReadLine();
-                                    Console.WriteLine(line);
-                                    
+                                    Console.WriteLine(line);   
                                 }
                                 sr.Close();
                                 Console.WriteLine($"\n{file} read.");
@@ -68,46 +67,164 @@ class Program
                     } while (choice == "1" || choice == "2" || choice == "3");
 
                 }
+
                 else if (choice == "2")
                 {
+
+                    Console.WriteLine("Select the type of ticket to create:");
+                    Console.WriteLine("1) Bug/Defect");
+                    Console.WriteLine("2) Task");
+                    Console.WriteLine("3) Enhancements");
+                    Console.WriteLine("Enter any other key to exit.");
+                    choice = Console.ReadLine();
+
                     // create file from data
-                    StreamWriter sw = new StreamWriter(file, true);
+                        if(choice == "1") {
+                            file = "Tickets.csv";
+                            Bug ticket = new Bug();
+                            StreamWriter sw = new StreamWriter(file, true);
+                                for (int i = 0; i < 8; i++)
+                                {
+                                    // ask a question
+                                    Console.WriteLine("Enter a ticket (Y/N)?");
+                                    // input the response
+                                    string resp = Console.ReadLine().ToUpper();
+                                    // if the response is anything other than "Y", stop asking
+                                    if (resp != "Y") {
+                                        break; 
+                                    } else {
+                                    Console.WriteLine("Enter Ticket ID (numbers)");
+                                    ticket.ticketID = Convert.ToInt16(Console.ReadLine());
 
-                    Ticket ticket = new Ticket();
+                                    Console.WriteLine("Enter Ticket Summary:");
+                                    ticket.summary = Console.ReadLine();
+                                
+                                    Console.WriteLine("Enter Ticket Status (Open, Closed):");
+                                    ticket.status = Console.ReadLine();
 
-                    for (int i = 0; i < 7; i++)
-                    {
-                        // ask a question
-                        Console.WriteLine("Enter a ticket (Y/N)?");
-                        // input the response
-                        string resp = Console.ReadLine().ToUpper();
-                        // if the response is anything other than "Y", stop asking
-                        if (resp != "Y") { break; }
+                                    Console.WriteLine("Enter Ticket Priority:");
+                                    ticket.priority = Console.ReadLine();
 
-                        Console.WriteLine("Enter Ticket ID (numbers)");
-                        ticket.ticketID = Convert.ToInt16(Console.ReadLine());
+                                    Console.WriteLine("Enter Your Name (Ticket Submitter, First and Last Name):");
+                                    ticket.submitter = Console.ReadLine();
 
-                        Console.WriteLine("Enter Ticket Summary");
-                        ticket.summary = Console.ReadLine();
+                                    Console.WriteLine("Enter who has been assigned the Ticket (Seperate Multiple Entries with comma, include First and Last name):");
+                                    ticket.assigned = Console.ReadLine();
+
+                                    Console.WriteLine("Enter who is watching the ticket (Seperate Multiple Entries with |, include First and Last name):");
+                                    ticket.watching = Console.ReadLine();
+
+                                    Console.WriteLine("Enter the severity of the bug:");
+                                    ticket.severity = Console.ReadLine();
+                                    
+                                    sw.WriteLine($"\n{ticket.Display()}");
+                                    }
+
+                                }
+                                sw.Close();
+                        } else if(choice == "2") {
+                            file = "Task.csv";
+                            Task task = new Task();
+                            StreamWriter sw = new StreamWriter(file, true);
+                                for (int i = 0; i < 9; i++)
+                                {
+                                    // ask a question
+                                    Console.WriteLine("Enter a ticket (Y/N)?");
+                                    // input the response
+                                    string resp = Console.ReadLine().ToUpper();
+                                    // if the response is anything other than "Y", stop asking
+                                    if (resp != "Y") {
+                                        break; 
+                                    } else {
+                                    Console.WriteLine("Enter Ticket ID (numbers)");
+                                    task.ticketID = Convert.ToInt16(Console.ReadLine());
+
+                                    Console.WriteLine("Enter Ticket Summary:");
+                                    task.summary = Console.ReadLine();
+                                
+                                    Console.WriteLine("Enter Ticket Status (Open, Closed):");
+                                    task.status = Console.ReadLine();
+
+                                    Console.WriteLine("Enter Ticket Priority:");
+                                    task.priority = Console.ReadLine();
+
+                                    Console.WriteLine("Enter Your Name (Ticket Submitter, First and Last Name):");
+                                    task.submitter = Console.ReadLine();
+
+                                    Console.WriteLine("Enter who has been assigned the Ticket (Seperate Multiple Entries with comma, include First and Last name):");
+                                    task.assigned = Console.ReadLine();
+
+                                    Console.WriteLine("Enter who is watching the ticket (Seperate Multiple Entries with |, include First and Last name):");
+                                    task.watching = Console.ReadLine();
+
+                                    Console.WriteLine("Enter the project name:");
+                                    task.projectName = Console.ReadLine();
+
+                                    Console.WriteLine("Enter the due date formated as DAY/MONTH/YEAR.");
+                                    task.dueDate = Console.ReadLine();
+                                    
+                                    sw.WriteLine($"\n{task.Display()}");
+                                    }
+
+                                }
+                                sw.Close();
+
+                        } else if(choice == "3") {
+                            file = "Enhancements.csv";
+                            Enhancement enhancement = new Enhancement();
+                            StreamWriter sw = new StreamWriter(file, true);
+                                for (int i = 0; i < 11; i++)
+                                {
+                                    // ask a question
+                                    Console.WriteLine("Enter a ticket (Y/N)?");
+                                    // input the response
+                                    string resp = Console.ReadLine().ToUpper();
+                                    // if the response is anything other than "Y", stop asking
+                                    if (resp != "Y") {
+                                        break; 
+                                    } else {
+                                    Console.WriteLine("Enter Ticket ID (numbers)");
+                                    enhancement.ticketID = Convert.ToInt16(Console.ReadLine());
+
+                                    Console.WriteLine("Enter Ticket Summary:");
+                                    enhancement.summary = Console.ReadLine();
+                                
+                                    Console.WriteLine("Enter Ticket Status (Open, Closed):");
+                                    enhancement.status = Console.ReadLine();
+
+                                    Console.WriteLine("Enter Ticket Priority:");
+                                    enhancement.priority = Console.ReadLine();
+
+                                    Console.WriteLine("Enter Your Name (Ticket Submitter, First and Last Name):");
+                                    enhancement.submitter = Console.ReadLine();
+
+                                    Console.WriteLine("Enter who has been assigned the Ticket (Seperate Multiple Entries with comma, include First and Last name):");
+                                    enhancement.assigned = Console.ReadLine();
+
+                                    Console.WriteLine("Enter who is watching the ticket (Seperate Multiple Entries with |, include First and Last name):");
+                                    enhancement.watching = Console.ReadLine();
+
+                                    Console.WriteLine("Enter the software that is going to be enhanced:");
+                                    enhancement.software = Console.ReadLine();
+                                    
+                                    Console.WriteLine("Enter the cost of the enhancement:");
+                                    enhancement.cost = int.Parse(Console.ReadLine());
+
+                                    Console.WriteLine("Enter the reason for the enhancement:");
+                                    enhancement.reason = Console.ReadLine();
+
+                                    Console.WriteLine("Enter the estimate of time for the enhancement:");
+                                    enhancement.estimate = Console.ReadLine();
+                                    
+                                    sw.WriteLine($"\n{enhancement.Display()}");
+                                    }
+
+                                }
+                                sw.Close();
+
+                        }
+
                     
-                        Console.WriteLine("Enter Ticket Status (Open, Closed)");
-                        ticket.status = Console.ReadLine();
-
-                        Console.WriteLine("Enter Ticket Priority");
-                        ticket.priority = Console.ReadLine();
-
-                        Console.WriteLine("Enter Your Name (Ticket Submitter, First and Last Name)");
-                        ticket.submitter = Console.ReadLine();
-
-                        Console.WriteLine("Enter who has been assigned the Ticket (Seperate Multiple Entries with comma, include First and Last name)");
-                        ticket.assigned = Console.ReadLine();
-
-                        Console.WriteLine("Enter who is watching the ticket (Seperate Multiple Entries with |, include First and Last name) ");
-                        ticket.watching = Console.ReadLine();
-
-                        sw.WriteLine($"{ticket.ticketID},{ticket.summary},{ticket.status},{ticket.priority},{ticket.submitter},{ticket.assigned},{ticket.watching}");
-                    }
-                    sw.Close();
                 }
                 logger.Info("User choice: {Choice}", choice);
             } while (choice == "1" || choice == "2");
