@@ -179,6 +179,7 @@ class Program
                                     Console.WriteLine("Enter a ticket (Y/N)?");
                                     // input the response
                                     string resp = Console.ReadLine().ToUpper();
+                                    
                                     // if the response is anything other than "Y", stop asking
                                     if (resp != "Y") {
                                         break; 
@@ -218,13 +219,9 @@ class Program
                                     
                                     sw.WriteLine($"\n{enhancement.Display()}");
                                     }
-
                                 }
                                 sw.Close();
-
-                        }
-
-                    
+                        } 
                 }
                 logger.Info("User choice: {Choice}", choice);
             } while (choice == "1" || choice == "2");
